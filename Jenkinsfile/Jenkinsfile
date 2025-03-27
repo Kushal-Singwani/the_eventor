@@ -8,17 +8,24 @@ pipeline {
         }
         stage('Install Dependencies') {
             steps {
-                sh 'python3 -m venv kushslenv && source kushalenv/bin/activate && pip install -r requirements.txt'
+                sh '''
+                    python3 -m venv kushalenv
+                    bash -c "source kushalenv/bin/activate && pip install -r requirements.txt"
+                '''
             }
         }
         stage('Migrate Database') {
             steps {
-                sh 'source kushalenv/bin/activate && python manage.py migrate'
+                sh '''
+                    bash -c "source kushalenv/bin/activate && python manage.py migrate"
+                '''
             }
         }
         stage('Run Server') {
             steps {
-                sh 'source kushalenv/bin/activate && nohup python manage.py runserver 0.0.0.0:8000 &'
+                sh '''
+                    bash -c "source kushalenv/bin/activate && nohup python manage.py runserver 0.0.0.0:8000 &"
+                '''
             }
         }
     }
