@@ -1,0 +1,210 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+    .b1{
+        width:60px;
+        height:30px;
+        background-color:pink;
+        text-align:center;
+        border-radius:10px;
+        }
+        .b1:hover{
+            letter-spacing:1px;
+            background-color:#fff;
+        }
+</style>
+    <body>
+    
+    <!-- ***** Preloader Start ***** -->
+    <div id="js-preloader" class="js-preloader">
+      <div class="preloader-inner">
+        <span class="dot"></span>
+        <div class="dots">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </div>
+    <!-- ***** Preloader End ***** -->
+    
+    <!-- ***** Pre HEader ***** -->
+    <div class="pre-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-sm-6">
+                    <span>Hey! The Show Is Starting In 5 Days.</span>
+                </div>
+                <div class="col-lg-6 col-sm-6">
+                    <div class="text-button">
+                        <a href="{% url 'rent-venue'%}">Contact Us Now! <i class="fa fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ***** Header Area Start ***** -->
+    <header class="header-area header-sticky">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="main-nav">
+                        <!-- ***** Logo Start ***** -->
+                        <a href="{% url 'index'%}" class="logo">Dream's<em>Event</em></a>
+                        <!-- ***** Logo End ***** -->
+                        <!-- ***** Menu Start ***** -->
+                        <ul class="nav">
+                            <li><a href="{% url 'index'%}" class="active">Home</a></li>
+                            <li><a href="{% url 'about'%}">About Us</a></li>
+                            <li><a href="{% url 'rent-venue'%}">Wedding</a></li>
+                            <li><a href="{% url 'shows-events'%}">Shows Events</a></li> 
+                            <li><a href="{% url 'corporate_party'%}">Corporate party</a></li> 
+                            <li><a href="{% url 'tickets'%}" class="active">Booking</a></li> 
+                            <li>
+                                {%if user.email%}
+                                <a href="{% url 'profile'%}">{{user.name}}</a>
+                                <img class="rounded-circle me-lg-2" src="../static/img/user.jpg" alt="" style="width: 40px; height: 40px; position:relative; left:50px; top:-35px">
+                                {%else%}
+                                <a href="{% url 'login_user'%}" class="b1">Login</a> 
+                                {%endif%}
+                            </li> 
+                        </ul>           
+                        <a class='menu-trigger'>
+                            <span>Menu</span>
+                        </a>
+                        <!-- ***** Menu End ***** -->
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ***** Header Area End ***** -->
+
+    <!-- ***** About Us Page ***** -->
+    <div class="page-heading-shows-events">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>Tickets On Sale Now!</h2>
+                    <span>Check out upcoming and past shows events and grab your ticket right now.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="ticket-details-page">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="left-image">
+                        <img src="../static/assets/images/ticket-details.jpg" alt="">
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="right-content">
+                        <h4>{{event}}</h4>
+                        <span>{{amount}} Tickets still available</span>
+                        <ul>
+                            <li><i class="fa fa-clock-o"></i> Thursday 18:00 to 22:00</li>
+                            <li><i class="fa fa-map-marker"></i>Copacabana Beach, Rio de Janeiro</li>
+                        </ul>
+                        <div class="quantity-content">
+                            <div class="left-content">
+                                <h6>Standard Ticket</h6>
+                                <p>${{amount}} per ticket</p>
+                            </div>
+                            <div class="right-content">
+                                <div class="quantity buttons_added">
+                                    <input type="button" value="-" class="minus"><input type="number" step="1" min="1" max="" name="quantity" value="1" title="Qty" class="input-text qty text" size="4" pattern="" inputmode=""><input type="button" value="+" class="plus">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="total">
+                            <h4 id="totalAmount">Total: ${{amount}}.00</h4> <!-- Yaha amount update hoga -->
+                            <div class="main-dark-button">
+                                <a id="bookNowBtn" href="/payment?amount={{amount}}">Book Now</a> <!-- Yaha bhi update hoga -->
+                            </div>
+                        </div>
+                        <div class="warn">
+                            <p>*You Can Only Buy 10 Tickets For This Show</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- *** Subscribe *** -->
+    <div class="subscribe">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <h4>Subscribe Our Newsletter:</h4>
+                </div>
+                <div class="col-lg-8">
+                    <form id="subscribe" action="" method="get">
+                        <div class="row">
+                          <div class="col-lg-9">
+                            <fieldset>
+                              <input name="email" type="text" id="email" pattern="[^ @]*@[^ @]*" placeholder="Your Email Address" required="">
+                            </fieldset>
+                          </div>
+                          <div class="col-lg-3">
+                            <fieldset>
+                              <button type="submit" id="form-submit" class="main-dark-button">Submit</button>
+                            </fieldset>
+                          </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let minusButton = document.querySelector(".minus");
+        let plusButton = document.querySelector(".plus");
+        let inputField = document.querySelector(".qty");
+        let totalPriceElement = document.getElementById("totalAmount");
+        let bookNowButton = document.getElementById("bookNowBtn");
+        let pricePerItem = "{{amount}}"; // Per item cost
+    
+        function updateTotal() {
+            let quantity = parseInt(inputField.value) || 1;
+            let newTotal = quantity * pricePerItem;
+    
+            // 🔹 Total price <h4> me update karna
+            totalPriceElement.innerHTML = `Total: $${newTotal.toFixed(2)}`;
+    
+            // 🔹 "Book Now" button ka href update karna
+            bookNowButton.href = `/payment?amount=${newTotal}`;
+        }
+    
+        minusButton.addEventListener("click", function () {
+            let currentValue = parseInt(inputField.value) || 1;
+            if (currentValue > 1) {
+                inputField.value = currentValue - 1;
+                updateTotal();
+            }
+        });
+    
+        plusButton.addEventListener("click", function () {
+            let currentValue = parseInt(inputField.value) || 1;
+            inputField.value = currentValue + 1;
+            updateTotal();
+        });
+    
+        inputField.addEventListener("input", function () {
+            updateTotal();
+        });
+    
+        // Page load hone par bhi total update karein
+        updateTotal();
+    });
+    </script>
+    <!-- *** Footer *** -->
+    {% endblock %}

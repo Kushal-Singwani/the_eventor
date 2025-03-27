@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h2>UPDATE Forms</h2>
+
+<form action="" method="POST">
+    {% csrf_token %}
+  <label for="fname">Name:</label><br>
+  <input type="text" id="fname" name="u_name" value="{{d2.name}}"><br>
+  <label for="fname">Email:</label><br>
+  <input type="email" id="fname" name="email" value="{{d2.email}}"><br>
+  <label for="lname">password</label><br>
+  <input type="password" id="lname" name="password" value="{{d2.password}}"><br>
+  <label for="lname">gender</label><br>
+  male:<input type="radio" id="lname" name="gender" value="m"><br><br>
+  female:<input type="radio" id="lname" name="gender" value="f"><br><br>
+  other:<input type="radio" id="lname" name="gender" value="o"><br><br>
+  <label for="lname">checkbox</label><br>
+  <input type="checkbox" id="lname" name="check1"><br><br>
+  <input type="submit" value="Submit">
+</form> 
+</body>
+</html>
