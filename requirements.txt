@@ -1,4 +1,4 @@
-pip install django
-pip install mysqlclient
-pip install sqlite3
-pip install --upgrade toolset
+django>=4.2,<5.0
+mysqlclient>=2.1
+sqlite3  
+toolset>=1.0 
