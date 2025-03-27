@@ -1,0 +1,25 @@
+pipeline {
+    agent any
+    stages {
+        stage('Clone Repository') {
+            steps {
+                git branch: 'main', url: 'https://github.com/Kushal-Singwani/the_eventor.git'
+            }
+        }
+        stage('Install Dependencies') {
+            steps {
+                sh 'python3 -m venv kushslenv && source kushalenv/bin/activate && pip install -r requirements.txt'
+            }
+        }
+        stage('Migrate Database') {
+            steps {
+                sh 'source kushalenv/bin/activate && python manage.py migrate'
+            }
+        }
+        stage('Run Server') {
+            steps {
+                sh 'source kushalenv/bin/activate && nohup python manage.py runserver 0.0.0.0:8000 &'
+            }
+        }
+    }
+}
