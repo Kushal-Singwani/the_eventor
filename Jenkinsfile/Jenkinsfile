@@ -28,5 +28,35 @@ pipeline {
                 '''
             }
         }
+        stage('Create Image') {
+            steps {
+                sh '''
+                    bash -c "docker build -t the_eventor ."
+                '''
+            }
+        }
+        stage('Login to Docker Hub') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
+                    sh '''
+                        bash -c "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
+                    '''
+                }
+            }
+        }
+        stage('Tagging Image') {
+            steps {
+                sh '''
+                    bash -c "docker tag the_eventor kushalsingwani12/the_eventor:latest"
+                '''
+            }
+        }
+        stage('Push Image') {
+            steps {
+                sh '''
+                    bash -c "docker push kushalsingwani12/the_eventor:latest"
+                '''
+            }
+        }
     }
 }
