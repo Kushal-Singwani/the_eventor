@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-yxjfy=o*d##=_vx@-s0r$o7cgdvz@nht9ti(ykix-atjrfyvjb
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 CSRF_TRUSTED_ORIGINS = [
     "https://api.razorpay.com",
