@@ -17,14 +17,14 @@ pipeline {
         stage('Migrate Database') {
             steps {
                 sh '''
-                    bash -c "source kushalenv/bin/activate && python manage.py migrate"
+                    bash -c "source kushalenv/bin/activate && python3 manage.py migrate"
                 '''
             }
         }
         stage('Run Server') {
             steps {
                 sh '''
-                    bash -c "source kushalenv/bin/activate && nohup python manage.py runserver 0.0.0.0:8000 &"
+                    bash -c "source kushalenv/bin/activate && nohup python3 manage.py runserver 0.0.0.0:8000 &"
                 '''
             }
         }
