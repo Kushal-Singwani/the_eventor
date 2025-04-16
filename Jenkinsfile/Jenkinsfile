@@ -50,7 +50,7 @@ pipeline {
          stage('Run Server') {
             steps {
                 sh '''
-                    kushalenv/bin/python manage.py runserver 0.0.0.0:5000
+                    nohup kushalenv/bin/python manage.py runserver 0.0.0.0:5000
                 '''
             }
         }
