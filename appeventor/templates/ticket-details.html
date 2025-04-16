@@ -114,7 +114,7 @@
                         <div class="quantity-content">
                             <div class="left-content">
                                 <h6>Standard Ticket</h6>
-                                <p>${{amount}} per ticket</p>
+                                <p>₹{{amount}} per ticket</p>
                             </div>
                             <div class="right-content">
                                 <div class="quantity buttons_added">
@@ -123,7 +123,7 @@
                             </div>
                         </div>
                         <div class="total">
-                            <h4 id="totalAmount">Total: ${{amount}}.00</h4> <!-- Yaha amount update hoga -->
+                            <h4 id="totalAmount">Total: ₹{{amount}}.00</h4> <!-- Yaha amount update hoga -->
                             <div class="main-dark-button">
                                 <a id="bookNowBtn" href="/payment?amount={{amount}}">Book Now</a> <!-- Yaha bhi update hoga -->
                             </div>
@@ -178,10 +178,10 @@
             let newTotal = quantity * pricePerItem;
     
             // 🔹 Total price <h4> me update karna
-            totalPriceElement.innerHTML = `Total: $${newTotal.toFixed(2)}`;
+            totalPriceElement.innerHTML = `Total: ₹₹{newTotal.toFixed(2)}`;
     
             // 🔹 "Book Now" button ka href update karna
-            bookNowButton.href = `/payment?amount=${newTotal}`;
+            bookNowButton.href = `/payment?amount=₹{newTotal}`;
         }
     
         minusButton.addEventListener("click", function () {
