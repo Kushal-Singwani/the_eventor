@@ -68,7 +68,8 @@ def ticket_details(request):
         user = datadesire.objects.get(id=user_id)
         amount=request.GET.get("amount",00)
         event=request.GET.get("event",'None')
-        return render(request,"ticket-details.html",{'user':user,'amount':amount,'event':event})
+        location=request
+        return render(request,"ticket-details.html",{'user':user,'amount':amount,'event':event,'location':location})
     return render(request,"ticket-details.html")
 
 def event_details(request):
