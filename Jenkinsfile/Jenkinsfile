@@ -6,21 +6,26 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/Kushal-Singwani/the_eventor.git'
             }
         }
-        stage('Install & Migrate') {
+        stage('Install Dependencies') {
             steps {
                 sh '''
-                    bash -c "python3 -m venv kushalenv"
-                    bash -c "source kushalenv/bin/activate"
-                    bash -c "pip install -r requirements.txt"
-                    bash -c "python3 manage.py makemigrations"
-                    bash -c "python3 manage.py migrate"
+                    python3 -m venv kushalenv
+                    source kushalenv/bin/activate && pip install -r requirements.txt
+                '''
+            }
+        }
+        stage('Migrate Database') {
+            steps {
+                sh '''
+                    python3 manage.py makemigrations
+                    python3 manage.py migrate"
                 '''
             }
         }
         stage('Create Image') {
             steps {
                 sh '''
-                    bash -c "docker build -t the_eventor ."
+                    docker build -t the_eventor .
                 '''
             }
         }
@@ -28,7 +33,7 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'docker', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
                     sh '''
-                        bash -c "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
+                        echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
                     '''
                 }
             }
@@ -36,21 +41,21 @@ pipeline {
         stage('Tagging Image') {
             steps {
                 sh '''
-                    bash -c "docker tag the_eventor kushalsingwani12/the_eventor:latest"
+                    docker tag the_eventor kushalsingwani12/the_eventor:latest
                 '''
             }
         }
         stage('Push Image') {
             steps {
                 sh '''
-                    bash -c "docker push kushalsingwani12/the_eventor:latest"
+                    docker push kushalsingwani12/the_eventor:latest
                 '''
             }
         }
          stage('Run Server') {
             steps {
                 sh '''
-                    bash -c "python3 manage.py runserver 0.0.0.0:8000"
+                    python3 manage.py runserver 0.0.0.0:8000
                 '''
             }
         }
