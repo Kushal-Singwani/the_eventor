@@ -189,6 +189,10 @@ def view_receive_payment(request):
     amount=FakePayment.objects.all()
     return render(request,"admin/view-receive-payment.html",{'user':user,"amount_show":amount})
 
+def show_reservations(request):
+    reservations = Reservation.objects.all()
+    return render(request, 'show_reservations.html', {'reservations': reservations})
+
 def view_suggestions(request):
     adminuser.objects.filter(is_read=False).update(is_read=True)
     data=request.session.get('id')

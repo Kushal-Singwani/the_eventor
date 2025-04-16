@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Pages / Reservation - NiceAdmin Bootstrap Template</title>
+  <link href="../static/assets2/img/favicon.png" rel="icon">
+  <link href="../static/assets2/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="../static/assets2/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../static/assets2/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../static/assets2/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="../static/assets2/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="../static/assets2/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="../static/assets2/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="../static/assets2/vendor/simple-datatables/style.css" rel="stylesheet">
+  <link href="../static/assets2/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <!-- Header -->
+  {% include 'admin_header.html' %}
+
+  <!-- Sidebar -->
+  {% include 'admin_sidebar.html' %}
+
+  <main id="main" class="main">
+    <div class="pagetitle">
+      <h1>Reservation List</h1>
+    </div>
+
+    <section class="section">
+      <div class="card">
+        <div class="card-body mt-3">
+          <h5 class="card-title">View All Reservations</h5>
+
+          <table class="table table-bordered border-primary mt-3">
+            <thead>
+              <tr>
+                <th scope="col">Reservation ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Date</th>
+                <th scope="col">Time</th>
+                <th scope="col">Message</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for reservation in reservations %}
+              <tr>
+                <td>{{ reservation.id }}</td>
+                <td>{{ reservation.name }}</td>
+                <td>{{ reservation.email }}</td>
+                <td>{{ reservation.phone }}</td>
+                <td>{{ reservation.date }}</td>
+                <td>{{ reservation.time }}</td>
+                <td>{{ reservation.message }}</td>
+              </tr>
+              {% empty %}
+              <tr>
+                <td colspan="7" class="text-center">No reservations found.</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer id="footer" class="footer">
+    <div class="copyright">
+      &copy; Event <strong><span>Admin</span></strong>. All Rights Reserved
+    </div>
+    <div class="credits">
+      Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+    </div>
+  </footer>
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+    <i class="bi bi-arrow-up-short"></i>
+  </a>
+
+  <!-- JS Files -->
+  <script src="../static/assets2/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="../static/assets2/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../static/assets2/vendor/chart.js/chart.umd.js"></script>
+  <script src="../static/assets2/vendor/echarts/echarts.min.js"></script>
+  <script src="../static/assets2/vendor/quill/quill.min.js"></script>
+  <script src="../static/assets2/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="../static/assets2/vendor/tinymce/tinymce.min.js"></script>
+  <script src="../static/assets2/vendor/php-email-form/validate.js"></script>
+  <script src="../static/assets2/js/main.js"></script>
+
+</body>
+</html>

@@ -43,6 +43,7 @@ urlpatterns = [
     path("users-profile/",views.admin_profile,name="users-profile"),
     path("view-documents/",views.view_documents,name="view-documents"),
     path("view-receive-payment/",views.view_receive_payment,name="view-receive-payment"),
+    path('admin/reservations/', views.show_reservations, name='show_reservations'),
     path("view-suggestions/",views.view_suggestions,name="view-suggestions"),
     path("user_edit/<int:id>",views.user_edit,name="user_edit"),
     path("pages_login/",views.pages_login,name="pages_login"),

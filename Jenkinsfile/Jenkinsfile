@@ -14,7 +14,6 @@ pipeline {
                     kushalenv/bin/pip install -r requirements.txt
                     kushalenv/bin/python manage.py makemigrations || true
                     kushalenv/bin/python manage.py migrate || true
-                    
                     python manage.py loaddata initial_data.json || true
                 '''
             }
