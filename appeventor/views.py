@@ -287,7 +287,6 @@ def fake_payment_view(request):
         user_id = request.session['user_id']  
         user = datadesire.objects.get(id=user_id)
         amount = request.GET.get("amount", 210)
-        event=request.GET.get("event", 'None')
         if request.method == "POST":
             form = FakePaymentForm(request.POST)
             if form.is_valid():
@@ -295,7 +294,7 @@ def fake_payment_view(request):
                 return redirect(payment_success,transaction_id=payment.transaction_id)
         else:
             form = FakePaymentForm()
-        return render(request, 'payment_form.html', {'form': form,"amount":amount,"user":user,"event":event})
+        return render(request, 'payment_form.html', {'form': form,"amount":amount,"user":user})
     return redirect(home)
 
 def payment_success(request, transaction_id):
