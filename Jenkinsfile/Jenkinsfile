@@ -17,7 +17,7 @@ pipeline {
         stage('Migrate Database') {
             steps {
                 sh '''
-                    bash -c "source kushalenv/bin/activate && python3 manage.py migrate"
+                    bash -c "python3 manage.py makemigrations && python3 manage.py migrate"
                 '''
             }
         }
