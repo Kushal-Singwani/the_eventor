@@ -9,7 +9,7 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 sh '''
-                    python3 -m venv kushalenv
+                    bash -c "python3 -m venv kushalenv"
                     bash -c "source kushalenv/bin/activate && pip install -r requirements.txt"
                 '''
             }
