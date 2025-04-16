@@ -204,6 +204,12 @@
           <span>View Receive Payment</span>
         </a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{% url 'subscription'%}">
+          <i class="bi bi-question-circle"></i>
+          <span>View Subscription</span>
+        </a>
+      </li>
 
       {% comment %} <li class="nav-item">
         <a class="nav-link collapsed" href="{% url 'view-documents'%}">
@@ -324,7 +330,7 @@
                       <i class="bi bi-currency-dollar"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>$3,264</h6>
+                      <h6>${{amount_count}}</h6>
                       <span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span>
 
                     </div>
@@ -360,7 +366,7 @@
                       <i class="bi bi-people"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>1244</h6>
+                      <h6>{{count}}</h6>
                       <span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">decrease</span>
 
                     </div>

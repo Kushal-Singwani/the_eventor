@@ -68,7 +68,7 @@ def ticket_details(request):
         user = datadesire.objects.get(id=user_id)
         amount=request.GET.get("amount",00)
         event=request.GET.get("event",'None')
-        location=request
+        location=request.GET.get("location",'None')
         return render(request,"ticket-details.html",{'user':user,'amount':amount,'event':event,'location':location})
     return render(request,"ticket-details.html")
 
@@ -146,7 +146,13 @@ def pages_login(request):
 def adminhome(request):
     data=request.session.get('id')
     user=adminuser.objects.get(id=data)
-    return render(request,"admin/index2.html",{'user':user})
+    values=datadesire.objects.all()
+    count=values.count()
+    Amount=FakePayment.objects.all()
+    d1=Amount.values('amount')
+    am=sum([i['amount'] for i in d1])
+    print(am)
+    return render(request,"admin/index2.html",{'user':user,'count':count,'amount_count':am})
 
 def client_profile(request):
     data=request.session.get('id')
@@ -221,7 +227,8 @@ def clienthome(request):
 def payment_info(request):
     data=request.session.get('user_id')
     user=datadesire.objects.get(id=data)
-    amount=FakePayment.objects.all()
+    user=user.name
+    amount=FakePayment.objects.filter(name=user)
     # print(amount)
     return render(request,"clientpenal/payment-info.html",{'user':user,'amount_detail':amount})
 
@@ -280,6 +287,7 @@ def fake_payment_view(request):
         user_id = request.session['user_id']  
         user = datadesire.objects.get(id=user_id)
         amount = request.GET.get("amount", 210)
+        event=request.GET.get("event", 'None')
         if request.method == "POST":
             form = FakePaymentForm(request.POST)
             if form.is_valid():
@@ -287,7 +295,7 @@ def fake_payment_view(request):
                 return redirect(payment_success,transaction_id=payment.transaction_id)
         else:
             form = FakePaymentForm()
-        return render(request, 'payment_form.html', {'form': form,"amount":amount,"user":user})
+        return render(request, 'payment_form.html', {'form': form,"amount":amount,"user":user,"event":event})
     return redirect(home)
 
 def payment_success(request, transaction_id):
@@ -310,3 +318,23 @@ def feedback_success(request):
 def get_notification_count(request):
     count = adminuser.objects.filter(is_read=False).count()
     return JsonResponse({'count': count})
+
+
+from .models import inquiry
+def send_email(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        data=inquiry.objects.create(email=email)
+        data.save()
+        return redirect(home)
+    return render(request, 'index.html')
+
+def subscription(request):
+    data=inquiry.objects.all()
+    return render(request,"admin/subscription.html",{'data':data})
+
+
+def deletedata(request):
+    data=FakePayment.objects.all()
+    data.delete()
+    return render(request,"adminhome.html",{"data":data})

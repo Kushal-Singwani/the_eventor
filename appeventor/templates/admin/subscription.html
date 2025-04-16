@@ -113,7 +113,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="{% url 'adminhome'%}">
+        <a class="nav-link " href="{% url 'view-receive-payment'%}">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
@@ -182,7 +182,6 @@
     </ul>
 
   </aside>
-
 <!-- End Header -->
 
   <!-- ======= Sidebar ======= -->
@@ -191,7 +190,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="{% url 'view-receive-payment'%}">
+        <a class="nav-link " href="{% url 'adminhome'%}">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
@@ -219,12 +218,6 @@
           <span>View Subscription</span>
         </a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="{% url 'view-suggestions'%}">
-          <i class="bi bi-question-circle"></i>
-          <span>View Query</span>
-        </a>
-      </li>
 
       {% comment %} <li class="nav-item">
         <a class="nav-link collapsed" href="{% url 'view-documents'%}">
@@ -236,16 +229,16 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="{% url 'view-suggestions'%}">
           <i class="bi bi-question-circle"></i>
-          <span>View suggestions</span>
+          <span>View Query</span>
         </a>
       </li>
 
-      <!-- <li class="nav-item">
-        <a class="nav-link collapsed" href="send-suggestions.html">
+       <li class="nav-item">
+        <a class="nav-link collapsed" href="#">
           <i class="bi bi-question-circle"></i>
           <span>send suggestions</span>
         </a>
-      </li> -->
+      </li> 
 
 
       <li class="nav-heading">Pages</li>
@@ -283,28 +276,34 @@
   <div class="card">
       <div class="card-body">
             <div class="pagetitle mt-4">
-                  <h1>View suggestions</h1>
+                  <h1>View Payment Receive</h1>
                 </div>
   <table class="table table-bordered border-primary mt-5">
       <thead>
         <tr>
-          <th scope="col">Id</th>
+          <th scope="col">#ID</th>
+       
           <th scope="col">Email</th>
-          <th scope="col">Query</th>
-          <th scope="col">Action</th>
+         
+          <th scope="col">Timestamp</th>
+          
         </tr>
       </thead>
       <tbody>
-        {%for i in data %}
-        <tr>
-          <td>{{i.id}}</td>
-          <td>{{i.Q_email}}</td>
-          <td>{{i.query}}</td>
-          <td>
-            <a class="col" href="{% url 'send-suggestions'%}">Response</a>
-          </td>
-        </tr>
-        {%endfor%}
+        {% if data %}
+                                    {% for i in data %}
+                                    <tr>
+                                        <th scope="row">{{i.id}}</th>
+                                       
+                                        <td>{{i.email}}</td>
+                                      
+                                        <td>{{i.created_at}}</td>
+                                       
+                                    </tr>
+                                    {%endfor%}
+                                    {%else%}
+                                    <h1>data is not found</h1>
+                                    {%endif%}
       </tbody>
     </table>
 
@@ -315,35 +314,38 @@
 </main>
 
 
-  <!-- ======= Footer ======= -->
-  <footer id="footer" class="footer">
-    <div class="copyright">
-      &copy; Event <strong><span>Admin</span></strong>. All Rights Reserved
-    </div>
-    <div class="credits">
-      <!-- All the links in the footer should remain intact. -->
-      <!-- You can delete the links only if you purchased the pro version. -->
-      <!-- Licensing information: https://bootstrapmade.com/license/ -->
-      <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
-      Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-    </div>
-  </footer><!-- End Footer -->
-  
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-  
-  <!-- Vendor JS Files -->
-  <script src="../static/assets2/vendor/apexcharts/apexcharts.min.js"></script>
-  <script src="../static/assets2/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="../static/assets2/vendor/chart.js/chart.umd.js"></script>
-  <script src="../static/assets2/vendor/echarts/echarts.min.js"></script>
-  <script src="../static/assets2/vendor/quill/quill.min.js"></script>
-  <script src="../static/assets2/vendor/simple-datatables/simple-datatables.js"></script>
-  <script src="../static/assets2/vendor/tinymce/tinymce.min.js"></script>
-  <script src="../static/assets2/vendor/php-email-form/validate.js"></script>
-  
-  <!-- Template Main JS File -->
-  <script src="../static/assets2/js/main.js"></script>
-  
-  </body>
-  
-  </html>
+<footer id="footer" class="footer">
+  <div class="copyright">
+    &copy; Event <strong><span>Admin</span></strong>. All Rights Reserved
+  </div>
+  <div class="credits">
+    <!-- All the links in the footer should remain intact. -->
+    <!-- You can delete the links only if you purchased the pro version. -->
+    <!-- Licensing information: https://bootstrapmade.com/license/ -->
+    <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
+    Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+  </div>
+</footer><!-- End Footer -->
+
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+<!-- Vendor JS Files -->
+<script src="../static/assets2/vendor/apexcharts/apexcharts.min.js"></script>
+<script src="../static/assets2/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../static/assets2/vendor/chart.js/chart.umd.js"></script>
+<script src="../static/assets2/vendor/echarts/echarts.min.js"></script>
+<script src="../static/assets2/vendor/quill/quill.min.js"></script>
+<script src="../static/assets2/vendor/simple-datatables/simple-datatables.js"></script>
+<script src="../static/assets2/vendor/tinymce/tinymce.min.js"></script>
+<script src="../static/assets2/vendor/php-email-form/validate.js"></script>
+
+<!-- Template Main JS File -->
+<script src="../static/assets2/js/main.js"></script>
+
+</body>
+
+</html>
+
+
+
+

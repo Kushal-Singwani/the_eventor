@@ -152,7 +152,7 @@
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th scope="col">#Id</th>
+                                        <!-- <th scope="col">#Id</th> -->
                                         <th scope="col">Name</th>
                                         <th scope="col">Email</th>
                                         <th scope="col">Amount</th>
@@ -165,8 +165,8 @@
                                 {% if amount_detail %}
                                     {% for i in amount_detail%}
                                     <tr>
-                                        <th scope="row">{{i.id}}</th>
-                                        <td>{{i.name}}</td>
+                                        <!-- <th scope="row">{{i.id}}</th> -->
+                                        <td  scope="row">{{i.name}}</td>
                                         <td>{{i.email}}</td>
                                         <td>{{i.amount}}</td>
                                         <td>{{i.transaction_id}}</td>
