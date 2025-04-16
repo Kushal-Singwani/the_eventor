@@ -6,17 +6,13 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/Kushal-Singwani/the_eventor.git'
             }
         }
-        stage('Install Dependencies') {
+        stage('Install & Migrate') {
             steps {
                 sh '''
                     bash -c "python3 -m venv kushalenv"
-                    bash -c "source kushalenv/bin/activate && pip install -r requirements.txt"
-                '''
-            }
-        }
-        stage('Migrate Database') {
-            steps {
-                sh '''
+                    bash -c "source kushalenv/bin/activate"
+                    bash -c "pip install --upgrade pip"
+                    bash -c "pip install -r requirements.txt"
                     bash -c "python3 manage.py makemigrations"
                     bash -c "python3 manage.py migrate"
                 '''
