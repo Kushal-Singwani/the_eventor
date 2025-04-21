@@ -52,6 +52,7 @@
               </tr>
             </thead>
             <tbody>
+              {% if reservations %}
               {% for reservation in reservations %}
               <tr>
                 <td>{{ reservation.id }}</td>
@@ -67,6 +68,9 @@
                 <td colspan="7" class="text-center">No reservations found.</td>
               </tr>
               {% endfor %}
+              {% else %}
+              <h1>data not found</h1>
+              {% endif %}
             </tbody>
           </table>
 
