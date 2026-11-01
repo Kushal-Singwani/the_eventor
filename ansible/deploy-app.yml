@@ -1,0 +1,38 @@
+---
+- name: Deploy The Eventor Docker Application
+  hosts: webservers
+  become: yes
+  vars:
+    app_image: "eventor-app:latest"
+    container_name: "eventor_container"
+    host_port: 8000
+    container_port: 5000
+
+  tasks:
+    - name: Stop and remove existing Eventor container if running
+      docker_container:
+        name: "{{ container_name }}"
+        state: absent
+
+    - name: Start updated Eventor container
+      docker_container:
+        name: "{{ container_name }}"
+        image: "{{ app_image }}"
+        state: started
+        restart_policy: always
+        ports:
+          - "{{ host_port }}:{{ container_port }}"
+
+    - name: Execute database migrations inside the running container
+      command: docker exec -t {{ container_name }} python3 manage.py migrate
+      register: migration_output
+
+    - name: Display migration results
+      debug:
+        var: migration_output.stdout_lines
+
+    - name: Wait for application port to respond
+      wait_for:
+        port: "{{ host_port }}"
+        delay: 5
+        timeout: 30
