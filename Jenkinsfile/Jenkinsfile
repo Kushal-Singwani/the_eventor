@@ -2,7 +2,6 @@ pipeline {
     agent any
 
     environment {
-        DOCKERHUB_CREDENTIALS = credentials('docker')
         IMAGE_NAME = 'the_eventor'
     }
 
@@ -33,11 +32,13 @@ pipeline {
 
         stage('Login & Push to Docker Hub') {
             steps {
-                sh '''
-                    echo "$DOCKERHUB_CREDENTIALS_PSW" | docker login -u "$DOCKERHUB_CREDENTIALS_USR" --password-stdin
-                    docker tag ${IMAGE_NAME}:latest ${DOCKERHUB_CREDENTIALS_USR}/${IMAGE_NAME}:latest
-                    docker push ${DOCKERHUB_CREDENTIALS_USR}/${IMAGE_NAME}:latest
-                '''
+                withCredentials([usernamePassword(credentialsId: 'docker', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                    sh '''
+                        echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+                        docker tag ${IMAGE_NAME}:latest ${DOCKER_USER}/${IMAGE_NAME}:latest
+                        docker push ${DOCKER_USER}/${IMAGE_NAME}:latest
+                    '''
+                }
             }
         }
 
@@ -49,12 +50,6 @@ pipeline {
                     docker run -d --name eventor_app -p 8000:8000 --restart always ${IMAGE_NAME}:latest
                 '''
             }
-        }
-    }
-
-    post {
-        always {
-            sh 'docker logout || true'
         }
     }
 }
