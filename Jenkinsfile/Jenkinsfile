@@ -42,11 +42,21 @@ pipeline {
             }
         }
 
-        stage('Run Server') {
+       stage('Run Server') {
             steps {
                 sh '''
+                    # Stop and remove any container currently binding port 8000
+                    EXISTING_CONTAINER=$(docker ps -q --filter publish=8000)
+                    if [ -n "$EXISTING_CONTAINER" ]; then
+                        docker stop $EXISTING_CONTAINER || true
+                        docker rm $EXISTING_CONTAINER || true
+                    fi
+
+                    # Remove the eventor_app container name if it persists
                     docker stop eventor_app || true
                     docker rm eventor_app || true
+
+                    # Run the freshly built image
                     docker run -d --name eventor_app -p 8000:8000 --restart always ${IMAGE_NAME}:latest
                 '''
             }
